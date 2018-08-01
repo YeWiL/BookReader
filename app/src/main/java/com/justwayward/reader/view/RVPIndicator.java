@@ -29,6 +29,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.NinePatchDrawable;
+import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -168,6 +169,10 @@ public class RVPIndicator extends LinearLayout {
 
     public RVPIndicator(Context context, AttributeSet attrs) {
         super(context, attrs);
+        /*** 重新测量宽高兼容7.0 ***/
+        if (Build.VERSION.SDK_INT >= 24) {
+            setGravity(Gravity.CENTER_VERTICAL);
+        }
         // 获得自定义属性
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.RVPIndicator);
@@ -397,6 +402,10 @@ public class RVPIndicator extends LinearLayout {
             }
 
             for (String title : mTabTitles) {
+                /*** 重新测量宽高兼容7.0 ***/
+                if (Build.VERSION.SDK_INT >= 24) {
+                    measure(0, 0);
+                }
                 addView(createTextView(title));
             }
 
